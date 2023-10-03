@@ -1,0 +1,11 @@
+.header-container {
+    min-height: 50px;
+    height: 100%;
+    max-height: 100px;
+    background: rgb(28, 28, 28);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    opacity: 80%;
+}

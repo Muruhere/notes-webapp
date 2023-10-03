@@ -1,0 +1,18 @@
+.notes-card {
+    margin: 10px;
+    flex: 1;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.notes-input {
+    width: 100%;
+    max-width: 400px;
+    min-height: 25px;
+    background: white;
+    color: black;
+    line-height: 20px;
+    padding: 1px 6px;
+    margin: 10px;
+}

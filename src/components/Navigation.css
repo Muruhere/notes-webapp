@@ -1,0 +1,33 @@
+.left-nav-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    padding: 10px;
+    background: rgb(28, 28, 28);
+    width: 200px;
+    opacity: 80%;
+}
+
+.dialog-box[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 15px;
+}
+
+.dialog-box::backdrop {
+    backdrop-filter: blur(8px);
+}
+
+a {
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+}

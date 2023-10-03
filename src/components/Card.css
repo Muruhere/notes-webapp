@@ -1,0 +1,14 @@
+.grid-cards {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(5, 1fr);  
+    margin: 30px 0;
+    color: black;
+    grid-gap: 20px;
+}
+
+span {
+    background-color: white;
+    min-height: 150px;
+    min-width: 150px;
+}

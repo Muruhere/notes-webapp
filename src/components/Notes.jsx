@@ -1,19 +1,10 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import Card from "./Card";
-import './Notes.css'
+import './Notes.css';
 
 export default function Notes() {
 
-    const { id } = useParams;
-
     const [response, setResponse] = useState([]);
-
-    useEffect(() => {
-        fetch(`url/${id}`)
-            .then(res => res.json())
-            .then(response => setResponse(response));
-    });
 
     function addNotes() {
         let notes = document.querySelector('.notes-input').innerHTML;

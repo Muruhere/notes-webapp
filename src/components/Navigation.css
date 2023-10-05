@@ -28,6 +28,29 @@ a {
     color: white;
 }
 
-a:hover {
-    text-decoration: underline;
+
+.doc-container {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.close-icon {
+    display: none;
+}
+
+.doc-container:hover {
+    background: grey;
+    padding: 10px;
+    transition: padding 0.6s;
+}
+
+.doc-container:hover > .close-icon {
+    display: block;
+}
+
+.close-icon:hover {
+    background: black;
 }

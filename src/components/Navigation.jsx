@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import './Navigation.css';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Navigation.css';
+import axios from 'axios';
 
 export default function Navigation() {
 
@@ -9,17 +10,47 @@ export default function Navigation() {
         dialog.showModal()
     }
 
-    const [documentList, setDocList] = useState([]);
+    const [documentList, setDocList] = useState([{
+        id: '',
+        documentName: '',
+        notes: []
+    }]);
+
+    useEffect(() => {
+        getDocs();
+    }, []);
+
+    const getDocs = async () => {
+        const response = await axios.get(
+            "http://localhost:8080/documents"
+        ).catch(() => {
+            console.log('internal server error');
+        })
+        setDocList(response?.data);
+    };
 
     function closeDialog() {
         const dialog = document.querySelector("dialog");
         dialog.close()
     }
 
-    function addDocument() {
+    async function deleteDoc(id) {
+        const response = await axios.delete(`http://localhost:8080/document/${id}`)
+            .catch(() => {
+                console.log('internal server error');
+            });
+        if (!response?.data) {
+            getDocs();
+        }
+    }
+
+    async function addDocument() {
         const docTitle = document.getElementById('document-text').value;
         const dialog = document.querySelector("dialog");
-        setDocList(prev => [...prev, docTitle]);
+        const response = await axios.post('http://localhost:8080/document', {
+            documentName: docTitle
+        })
+        setDocList(prev => [...prev, response.data]);
         dialog.close()
         document.getElementById('document-text').value = '';
     }
@@ -31,7 +62,7 @@ export default function Navigation() {
                 <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
             </svg>
             <dialog className='dialog-box'>
-                <svg style={{ marginLeft: 'auto', cursor: 'pointer' }} onClick={closeDialog} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height={25} width={25} className="w-5 h-5">
+                <svg style={{ marginLeft: 'auto', cursor: 'pointer' }} onClick={closeDialog} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height={25} width={25}>
                     <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                 </svg>
                 <label htmlFor='document-text' >Enter Document Name</label>
@@ -39,8 +70,16 @@ export default function Navigation() {
                 <button onClick={addDocument}>Add</button>
             </dialog>
             {
-                documentList.map((res, index) => {
-                    return <Link to={`/${index}`} key={index} >{res}</Link>
+                documentList.map(({ id, documentName, notes }) => {
+                    return (
+                        <div className='doc-container' key={id}>
+                            <Link key={id} state={{ doc: notes, docId: id }} to={`/${id}`}>{documentName}</Link>
+                            <svg className='close-icon' style={{ marginLeft: 'auto', cursor: 'pointer', opacity: '80%' }} onClick={() => deleteDoc(id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height={15} width={15} >
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </div>
+
+                    )
                 })
             }
         </section>

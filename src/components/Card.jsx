@@ -24,7 +24,7 @@ export default function Card() {
 
     function updateNote(note) {
         console.log(docId);
-        // axios.patch(`http://localhost:8080/note/${docId}?$name={note}`);
+        // axios.patch(`${process.env.REACT_APP_API_PATH}/note/${docId}?$name={note}`);
     }
 
     function maxSize(value) {

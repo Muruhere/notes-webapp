@@ -22,7 +22,7 @@ export default function Navigation() {
 
     const getDocs = async () => {
         const response = await axios.get(
-            "http://localhost:8080/documents"
+            `${process.env.REACT_APP_API_PATH}/documents`
         ).catch(() => {
             console.log('internal server error');
         })
@@ -35,7 +35,7 @@ export default function Navigation() {
     }
 
     async function deleteDoc(id) {
-        const response = await axios.delete(`http://localhost:8080/document/${id}`)
+        const response = await axios.delete(`${process.env.REACT_APP_API_PATH}/document/${id}`)
             .catch(() => {
                 console.log('internal server error');
             });
@@ -47,7 +47,7 @@ export default function Navigation() {
     async function addDocument() {
         const docTitle = document.getElementById('document-text').value;
         const dialog = document.querySelector("dialog");
-        const response = await axios.post('http://localhost:8080/document', {
+        const response = await axios.post(`${process.env.REACT_APP_API_PATH}/document`, {
             documentName: docTitle
         })
         setDocList(prev => [...prev, response.data]);

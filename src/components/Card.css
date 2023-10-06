@@ -7,7 +7,30 @@
     grid-gap: 20px;
 }
 
+
+.notes-card {
+    margin: 10px;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.notes-input {
+    width: 100%;
+    max-width: 400px;
+    min-height: 25px;
+    background: white;
+    color: black;
+    line-height: 20px;
+    padding: 1px 6px;
+    margin: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
 .card-class {
+    position: relative;
     display: flex;
     justify-content: space-between;
     padding: 10px;
@@ -16,7 +39,7 @@
     width: 150px;
     max-height: 150px;
     max-width: 150px;
-    overflow: hidden;
+    overflow-y: auto;
     border-radius: 10px;
 }
 
@@ -25,5 +48,25 @@
 }
 
 .card-class:focus {
-    cursor:text;
+    cursor: text;
+}
+
+.section-card {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.close-button {
+    display: none;
+}
+
+.card-class:hover>.close-button {
+    display: block;
+}
+
+.close-button {
+    position: absolute;
+    right: 6px;
+    top: 7px;
 }

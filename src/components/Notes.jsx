@@ -1,28 +1,18 @@
-import { useState } from "react";
-import Card from "./Card";
-import './Notes.css';
+// import axios from "axios";
+// import { useParams } from "react-router-dom";
+// import Card from "./Card";
+// import './Notes.css';
+// import { useState } from "react";
 
-export default function Notes() {
+// export default function Notes() {
 
-    const [response, setResponse] = useState([]);
+//     const { id } = useParams()
 
-    function addNotes() {
-        let notes = document.querySelector('.notes-input').innerHTML;
-        fetch('url', {
-            method: "POST",
-            body: JSON.stringify(notes)
-        }).then(res => res.json())
-            .then(response => setResponse(response));
-        document.querySelector('.notes-input').innerHTML = '';
-    }
+//     const [response, setResponse] = useState([{}]);
 
-    return (
+ 
 
-        <section className="notes-card">
-            <h3>Add Notes</h3>
-            <span className="notes-input" role="textbox" contentEditable ></span>
-            <button style={{ background: 'white', color: 'black' }} onClick={addNotes}>Add</button>
-            <Card notes={response} />
-        </section >
-    );
-}
+//     return (
+
+//     );
+// }

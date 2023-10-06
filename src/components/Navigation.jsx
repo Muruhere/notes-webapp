@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Navigation.css';
 import axios from 'axios';
 
 export default function Navigation() {
+
+    const navigate = useNavigate();
 
     function openDialog() {
         const dialog = document.querySelector("dialog");
@@ -41,7 +43,9 @@ export default function Navigation() {
             });
         if (!response?.data) {
             getDocs();
+            navigate('/', { replace: true })
         }
+
     }
 
     async function addDocument() {
@@ -72,13 +76,11 @@ export default function Navigation() {
             {
                 documentList.map(({ id, documentName, notes }) => {
                     return (
-                        <div className='doc-container' key={id}>
-                            <Link key={id} state={{ doc: notes, docId: id }} to={`/${id}`}>{documentName}</Link>
+                        <Link className='doc-container' key={id} to={`/${id}`}> {documentName}
                             <svg className='close-icon' style={{ marginLeft: 'auto', cursor: 'pointer', opacity: '80%' }} onClick={() => deleteDoc(id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height={15} width={15} >
                                 <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                             </svg>
-                        </div>
-
+                        </Link>
                     )
                 })
             }

@@ -74,7 +74,7 @@ export default function Navigation() {
                 <button onClick={addDocument}>Add</button>
             </dialog>
             {
-                documentList.map(({ id, documentName, notes }) => {
+                documentList && documentList.map(({ id, documentName, notes }) => {
                     return (
                         <Link className='doc-container' key={id} to={`/${id}`}> {documentName}
                             <svg className='close-icon' style={{ marginLeft: 'auto', cursor: 'pointer', opacity: '80%' }} onClick={() => deleteDoc(id)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height={15} width={15} >

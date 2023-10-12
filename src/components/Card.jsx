@@ -40,14 +40,17 @@ export default function Card() {
 
     function removeAll(value) {
         const dom = document.querySelector(`#a${value}`);
-        updateNote(dom.firstChild.nodeValue);
-        dom.style.transform = ''
-        dom.style.overflowY = "hidden";
-        dom.blur();
+        if (dom.style.transform) {
+            updateNote(dom.firstChild.nodeValue, value);
+            dom.style.transform = ''
+            dom.style.overflowY = "hidden";
+            dom.blur();
+        }
     }
 
-    function updateNote(note) {
-        // axios.patch(`${process.env.REACT_APP_API_PATH}/note/${''}?$name={note}`);
+    async function updateNote(note, id) {
+        const response = note && await axios.patch(`${process.env.REACT_APP_API_PATH}/note/${id}?name=${note}`);
+        console.log(response);
     }
 
     function maxSize(value) {
